@@ -30,7 +30,7 @@ async def info(ctx):
                    """)
     
 @bot.command(name='perusahaan')
-async def info(ctx):
+async def perusahaan_command(ctx):
     await ctx.send("""
     Daftar Perusahaan:
     1. PT Teknologi Indonesia
@@ -126,3 +126,14 @@ async def kerjaLN_command(ctx):
     - Bahasa
     - Dokumen lengkap
     """)
+
+
+@bot.command(name='projects')
+async def get_projects(ctx):
+    user_id = ctx.author.id
+    projects = manager.get_projects(user_id)
+    if projects:
+        text = "\n".join([f"Project name: {x[2]} \nLink: {x[4]}\n" for x in projects])
+        await ctx.send(text)
+    else:
+        await ctx.send('Kamu belum memiliki proyek!\nKamu dapat menambahkannya menggunakan perintah !new_project')
